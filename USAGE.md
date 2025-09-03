@@ -20,14 +20,15 @@ Fork this repository (including all branches), then, in your fork, replace `<tf-
 This module, and the "Landing Zone" child module which it uses ([HashiCorp Customer Workshop TF Registry Module - AWS Landing Zone](https://github.com/leefowlercu/hashicorp-workshop-tf-registry-module-aws-landing-zone)), include a helper output that, after the module is successfully applied, will provide a JSON representation of the import IDs necessary to populate the import files. We also include helper scripts in this repository (`update_imports.sh`/`update_imports.ps1`) that automatically update the correct import file based on the environment parameter you provide. To showcase config-driven imports in Terraform, create the resources using this module as per the standard usage instructions above, and then perform the following actions (in your Fork, on the appropriate Branch):
 
 1. Copy the `import_ids` object value from the outputs of the workspace and paste it directly into `importids.json`. Save the file.
-2. Run either of the `update_imports` scripts with the environment parameter matching your deployment's `account_class`:
+2. Uncomment the import blocks in either `imports-nonprod.tf` or `imports-prod.tf` depending on your deployment's `account_class` (Cmd+A + Cmd+/ MacOS, Ctrl+A + Ctrl+/ Windows). Save the file.
+3. Run either of the `update_imports` scripts, depending on your platforms native shell, with the environment parameter matching your deployment's `account_class`:
    - Shell: `./update_imports.sh nonprod` or `./update_imports.sh prod`
    - PowerShell: `./update_imports.ps1 -Environment nonprod` or `./update_imports.ps1 -Environment prod`
-3. The script will automatically update the appropriate import file (`imports-nonprod.tf` for nonprod or `imports-prod.tf` for prod) with the resource IDs from `importids.json`.
-4. Validate the import file contains the correct import IDs.
-5. *Force Delete the existing Workspace*. Yes, *Force Delete* it! The goal is to showcase importing existing, unmanaged infrastructure into Terraform management.
-6. Commit and push the changes including the updated import file to your Fork's remote repo, on the appropriate branch.
-7. Remake your workspace in HCPTF/TFE using the same variable values. This time instead of creating new infrastructure the module should read the import blocks and import the infrastructure into Terraform management.
+4. The script will automatically update the appropriate import file (`imports-nonprod.tf` for nonprod or `imports-prod.tf` for prod) with the resource IDs from `importids.json`.
+5. Validate the import file contains the correct import IDs.
+6. *Force Delete the existing Workspace*. Yes, *Force Delete* it! The goal is to showcase importing existing, unmanaged infrastructure into Terraform management.
+7. Commit and push the changes including the updated import file to your Fork's remote repo, on the appropriate branch.
+8. Remake your workspace in HCPTF/TFE using the same variable values. This time instead of creating new infrastructure the module should read the import blocks and import the infrastructure into Terraform management.
 
 ### Important Notes on NonProd vs Prod
 
