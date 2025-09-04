@@ -1,6 +1,6 @@
 module "landing_zone" {
-  source  = "<tf-hostname>/<tf-organization-name>/<tf-registry-module-name>/aws"
-  version = "<tf-registry-module-version>"
+  source  = "app.terraform.io/nih-cit-workshop/landing-zone/aws"
+  version = "1.0.0"
 
   account_name  = var.account_name
   account_class = var.account_class
